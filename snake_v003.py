@@ -7,8 +7,10 @@ pyxel.init(16*34, 16*25, title="Ultrasnake", fps = 100)
 #pyxel.load("game.pyxres", exclude_images=False, exclude_tilemaps=True, exclude_sounds=True, exclude_musics=True)
 pyxel.load("snake2.pyxres", exclude_images=False)
 
-maxapple = 10
-level = 3#1-5
+maxapple = 150
+slow = 0
+fast = 0
+level = 5#1-5
 count = 0#count fps
 score = 0
 x = 330#10-320
@@ -18,7 +20,8 @@ speedstep = 5
 snake = [[1, 20]]#snake len
 apple = [[random.randint(2, 32), random.randint(2, 23), random.randint(1, 3)]]
 dir = 0#0-3
-speed = 30
+speed = 20
+plusspeed = 0
 
 def checksnake(snake):
     a = 0
@@ -34,19 +37,26 @@ def checksnake(snake):
     return False
 
 def checkapple(apple, snake):
+    global slow, fast, plusspeed
     for i in apple:
         if i[:2] in snake:
+            if i[2] == 2:
+                plusspeed -= level
+                slow += 5
+            elif i[2] == 3:
+                plusspeed += level
+                fast += 5 
             apple.remove(i)
             return True
     return False
 
 def createapple(snake):
     global apple, maxapple, level
-    if len(apple) < maxapple and random.randint(1, 5) < level:
+    if (len(apple) < maxapple and random.randint(1, 5) < level) or len(apple) == 0:
         avpos = list()
         ax = 1
         ay = 1
-        while ay < 20:
+        while ay < 21:
             while ax < 33:
                 if [ax, ay] not in snake:
                     avpos.append([ax, ay])
@@ -54,7 +64,13 @@ def createapple(snake):
             ax = 1
             ay += 1
         cp = avpos[random.randint(0, len(avpos)-1)]
-        apple.append([cp[0], cp[1], random.randint(1, 3)])
+        appletype = random.randint(1, 5)
+        if appletype > level:
+            appletype = 2
+        elif appletype < level:
+            appletype = 3
+        ta = [1, appletype]
+        apple.append([cp[0], cp[1], ta[random.randint(0, 1)]])
 
 def getdir(ad, snakelen):
     if (pyxel.btn(pyxel.KEY_W) or pyxel.btn(pyxel.KEY_UP)) and (ad != 2 or snakelen == 1):
@@ -88,8 +104,8 @@ def movesnake(snake, dir, hta):
         return 1
 
 def update():
-    global step, snake, dir, speed, count, score
-    if count == speed:
+    global step, snake, dir, speed, count, score, slow, fast, plusspeed
+    if count == speed + plusspeed*2:
         hta = checkapple(apple, snake)
         dir = getdir(dir, len(snake))
         if movesnake(snake, dir, hta) == 1 or checksnake(snake):
@@ -100,11 +116,18 @@ def update():
             if speed > 20:
                 speed -= speedstep
             score += 1
+        if slow > 0:
+            slow -= 1
+        if fast > 0:
+            fast -= 1
+        if slow == 0 and fast == 0:
+            plusspeed = 0
         count = -1
         #time.sleep(speed)
     
     #print(f"Snake: {snake}")
-    print(f"Apple: {apple}")
+    #print(f"Apple: {apple}")
+    print(f"Speeds: {speed+plusspeed}")
     count += 1
     
 def drawborder():
