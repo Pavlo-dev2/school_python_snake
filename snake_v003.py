@@ -7,7 +7,7 @@ pyxel.init(16*34, 16*25, title="Ultrasnake", fps = 100)
 #pyxel.load("game.pyxres", exclude_images=False, exclude_tilemaps=True, exclude_sounds=True, exclude_musics=True)
 pyxel.load("snake2.pyxres", exclude_images=False)
 
-maxapple = 150
+maxapple = 300
 slow = 0
 fast = 0
 level = 5#1-5
@@ -41,10 +41,12 @@ def checkapple(apple, snake):
     for i in apple:
         if i[:2] in snake:
             if i[2] == 2:
-                plusspeed -= level
+                if plusspeed < level*3:
+                    plusspeed += level
                 slow += 5
             elif i[2] == 3:
-                plusspeed += level
+                if plusspeed > -(level*3):
+                    plusspeed -= level
                 fast += 5 
             apple.remove(i)
             return True
@@ -69,6 +71,7 @@ def createapple(snake):
             appletype = 2
         elif appletype < level:
             appletype = 3
+        #appletype = 2
         ta = [1, appletype]
         apple.append([cp[0], cp[1], ta[random.randint(0, 1)]])
 
