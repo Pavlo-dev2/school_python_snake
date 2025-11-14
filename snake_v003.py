@@ -6,11 +6,12 @@ pyxel.init(16*34, 16*25, title="Ultrasnake", fps = 100)
 #pyxel.load("snake.pyxres")
 #pyxel.load("game.pyxres", exclude_images=False, exclude_tilemaps=True, exclude_sounds=True, exclude_musics=True)
 pyxel.load("snake2.pyxres", exclude_images=False)
+#pyxel.images[0].load(0, 0, "assets/pyxel_logo_38x16.png")
 
-maxapple = 15
+maxapple = 50
 slow = 0
 fast = 0
-level = 3#1-5
+level = 5#1-5
 count = 0#count fps
 score = 0
 x = 330#10-320
@@ -18,9 +19,9 @@ y = 190#10-200
 step = 1
 speedstep = 5
 snake = [[1, 20]]#snake len
-apple = [[random.randint(2, 32), random.randint(2, 23), random.randint(1, 3)]]
+apple = [[random.randint(2, 32), random.randint(2, 21), random.randint(1, 3)]]
 dir = 0#0-3
-speed = 40
+speed = 50
 plusspeed = 0
 
 def checksnake(snake):
@@ -58,7 +59,7 @@ def createapple(snake):
         ay = 1
         while ay < 21:
             while ax < 33:
-                if [ax, ay] not in snake:
+                if [ax, ay] not in snake and [ax, ay] not in apple:
                     avpos.append([ax, ay])
                 ax += 1
             ax = 1
@@ -119,6 +120,7 @@ def drawborder():
 def drawinfo():
     global speed, score
     pyxel.rect(0, 22*16, 34*16, 3*16, 5)
+    #pyxel.text(16, 22*16, f"Score: {score}", pyxel.frame_count % 32)
     pyxel.text(16, 22*16, f"Score: {score}", 7)
 
 def drawapple(apple):
@@ -132,7 +134,7 @@ def drawapple(apple):
     
 def update():
     global step, snake, dir, speed, count, score, slow, fast, plusspeed
-    if count == max((speed + plusspeed), 10):
+    if count == max((speed + plusspeed), 5):
         hta = checkapple(apple, snake)
         dir = getdir(dir, len(snake))
         if movesnake(snake, dir, hta) == 1 or checksnake(snake):
@@ -140,7 +142,7 @@ def update():
             quit()
         createapple(snake)
         if hta:
-            if speed > 20:
+            if speed > 10:
                 speed -= speedstep
             score += 1
         if slow > 0:
