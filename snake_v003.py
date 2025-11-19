@@ -8,21 +8,7 @@ pyxel.init(16*34, 16*25, title="Ultrasnake", fps = 100)
 pyxel.load("snake2.pyxres", exclude_images=False)
 #pyxel.images[0].load(0, 0, "assets/pyxel_logo_38x16.png")
 
-maxapple = 50
-slow = 0
-fast = 0
-level = 5#1-5
-count = 0#count fps
-score = 0
-x = 330#10-320
-y = 190#10-200
-step = 1
-speedstep = 5
-snake = [[1, 20]]#snake len
-apple = [[random.randint(2, 32), random.randint(2, 21), random.randint(1, 3)]]
-dir = 0#0-3
-speed = 50
-plusspeed = 0
+
 
 def checksnake(snake):
     a = 0
@@ -131,9 +117,29 @@ def drawapple(apple):
             pyxel.blt(i[0]*16, i[1]*16, 0, 48, 16, 16, 16, colkey=0, rotate=0, scale=1)#good apple
         elif i[2] == 3:
             pyxel.blt(i[0]*16, i[1]*16, 0, 0, 32, 16, 16, colkey=0, rotate=0, scale=1)#bad apple
+            
+def createwalls(walls):
+    global level
+    if walls == 0:
+        walls = list()
+        wallnum = level
+        #walllengths = list()
+        a = 0
+        while a < level:
+            walls.append([random.randint(3, 31), random.randint(3, 20), random.randint(0, 3)])
+            a += 1
+        #print(walllengths)
+    return walls
+
+def drawwalls(walls):
+    for i in walls:
+        pyxel.blt(i[0]*16, i[1]*16, 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
+        print("draw")
     
 def update():
     global step, snake, dir, speed, count, score, slow, fast, plusspeed
+    createwalls(walls)
+    #quit()
     if count == max((speed + plusspeed), 5):
         hta = checkapple(apple, snake)
         dir = getdir(dir, len(snake))
@@ -156,11 +162,11 @@ def update():
     
     #print(f"Snake: {snake}")
     #print(f"Apple: {apple}")
-    print(f"Speed: {max((speed + plusspeed), 10)}")
+    #print(f"Speed: {max((speed + plusspeed), 10)}")
     count += 1
 
 def draw():
-    global snake, apple, dir
+    global snake, apple, dir, walls
     pyxel.cls(0)
     #print(dir)
     #pyxel.blt(0, 0, 0, 0, 0, 16, 16, colkey=12, rotate=0, scale=1)
@@ -168,6 +174,7 @@ def draw():
     drawinfo()
     drawborder()
     drawapple(apple)
+    drawwalls(walls)
 
     if dir == 0:
             pyxel.blt(snake[0][0]*16, snake[0][1]*16, 0, 32, 0, 16, 16, colkey=0, rotate=0, scale=1)
@@ -181,5 +188,23 @@ def draw():
     for i in snake[1:]:
         pyxel.blt(i[0]*16, i[1]*16, 0, 0, 0, 16, 16, colkey=0, rotate=0, scale=1)
         #pyxel.rect(i[0]*10, i[1]*10, 10, 10, 11)
+
+maxapple = 15
+slow = 0
+fast = 0
+level = 3#1-5
+count = 0#count fps
+score = 0
+x = 330#10-320
+y = 190#10-200
+step = 1
+speedstep = 5
+snake = [[1, 20]]#snake len
+apple = [[random.randint(2, 32), random.randint(2, 21), random.randint(1, 3)]]
+walls = 0
+walls = createwalls(walls)
+dir = 0#0-3
+speed = 50
+plusspeed = 0
 
 pyxel.run(update, draw)
