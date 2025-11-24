@@ -126,14 +126,26 @@ def createwalls(walls):
         #walllengths = list()
         a = 0
         while a < level:
-            walls.append([random.randint(3, 31), random.randint(3, 20), random.randint(0, 3)])
+            walls.append([random.randint(3, 31), random.randint(3, 20), random.randint(0, 3), random.randint(3, max(3, level*2))])
             a += 1
-        #print(walllengths)
+        print(walls, len(walls))
     return walls
 
 def drawwalls(walls):
+    print(walls, len(walls))
     for i in walls:
-        pyxel.blt(i[0]*16, i[1]*16, 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
+        if i[2] == 0:
+            for e in range(i[1], i[1]+i[3]):
+                pyxel.blt(min(i[0]*16, 32*16), min(e*16, 20*16), 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
+        if i[2] == 1:
+            for e in range(i[0], i[0]+i[3]):
+                pyxel.blt(min(e*16, 32*16), min(i[1]*16, 20*16), 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
+        if i[2] == 2:
+            for e in range(i[3], i[3]-i[1], -1):
+                pyxel.blt(min(i[0]*16, 32*16), min(e*16, 20*16), 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
+        if i[2] == 3:
+            for e in range(i[3], i[3]-i[0], -1):
+                pyxel.blt(min(e*16, 32*16), min(i[1]*16, 20*16), 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
         print("draw")
     
 def update():
@@ -192,7 +204,7 @@ def draw():
 maxapple = 15
 slow = 0
 fast = 0
-level = 3#1-5
+level = 5#1-5
 count = 0#count fps
 score = 0
 x = 330#10-320
