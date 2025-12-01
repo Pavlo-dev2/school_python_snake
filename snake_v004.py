@@ -37,6 +37,19 @@ def checkapple(apple, snake):
             return True
     return False
 
+#def checkwalls(walls, snake):
+ #   for i in walls:
+  #      if i[:2] in snake:
+   #         if i[2] == 2:
+    #            plusspeed += level
+     #           slow += 5
+      #      elif i[2] == 3:
+       #         plusspeed -= level
+        #        fast += 5 
+         #   apple.remove(i)
+          #  return True
+    #return False
+
 def createapple(snake):
     global apple, maxapple, level
     if (len(apple) < maxapple and random.randint(1, 5) < level) or len(apple) == 0:
@@ -138,11 +151,17 @@ def createwalls(walls):
                 for j in range(newwall[0]):
                     newwall[4].append([j, newwall[1]])
             print(newwall[0:4], "\n", newwall[4])
+            walls.append(newwall[4])
     return walls
+
+def drawwalls(walls):
+    for i in walls:
+        for e in i:
+            pyxel.blt(min(e[0]*16, 32*16), min(e[1]*16, 20*16), 0, 32, 16, 16, 16, colkey=0, rotate=0, scale=1)
     
 def update():
-    global step, snake, dir, speed, count, score, slow, fast, plusspeed
-    createwalls(walls)
+    global step, snake, dir, speed, count, score, slow, fast, plusspeed, walls
+    walls = createwalls(walls)
     #quit()
     if count == max((speed + plusspeed), 5):
         hta = checkapple(apple, snake)
@@ -178,9 +197,10 @@ def draw():
     drawinfo()
     drawborder()
     drawapple(apple)
+    drawwalls(walls)
 
     if dir == 0:
-            pyxel.blt(snake[0][0]*16, snake[0][1]*16, 0, 32, 0, 16, 16, colkey=0, rotate=0, scale=1)
+        pyxel.blt(snake[0][0]*16, snake[0][1]*16, 0, 32, 0, 16, 16, colkey=0, rotate=0, scale=1)
     elif dir == 1:
         pyxel.blt(snake[0][0]*16, snake[0][1]*16, 0, 16, 0, 16, 16, colkey=0, rotate=0, scale=1)
     elif dir == 2:
