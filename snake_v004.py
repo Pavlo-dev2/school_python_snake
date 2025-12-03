@@ -136,23 +136,55 @@ def createwalls(walls):
     wallcords = list()
     if walls == 0:
         walls = list()
+        count = 1
         for i in range(0, level-1):
             newwall = [random.randint(1, 33), random.randint(1, 21), int(random.randint(4, int(level*2.5))), random.randint(0, 3), list()]
             if newwall[3] == 0:#up
                 for j in range(newwall[1], newwall[1]+newwall[2]):
-                    newwall[4].append([newwall[0], j])
+                    print(checknewblock([newwall[0], j], walls, newwall[4], count))
+                    if checknewblock([newwall[0], j], walls, newwall[4], count):
+                        newwall[4].append([newwall[0], j])
             elif newwall[3] == 1:#rigth
-                for j in range(newwall[0], newwall[0]-newwall[2]):
-                    newwall[4].append([j, newwall[1]])
+                for j in range(newwall[0], newwall[0]+newwall[2]):
+                    print(checknewblock([j, newwall[0]], walls, newwall[4], count))
+                    if checknewblock([j, newwall[0]], walls, newwall[4], count):
+                        newwall[4].append([j, newwall[1]])
             elif newwall[3] == 2:#down
-                for j in range(newwall[1]+newwall[2], newwall[1]):
-                    newwall[4].append([newwall[0], j])
+                for j in range(newwall[1]-newwall[2], newwall[1]):
+                    print(checknewblock([newwall[0], j], walls, newwall[4], count))
+                    if checknewblock([newwall[0], j], walls, newwall[4], count):
+                        newwall[4].append([newwall[0], j])
             elif newwall[3] == 3:#left
-                for j in range(newwall[0]):
-                    newwall[4].append([j, newwall[1]])
+                for j in range(newwall[0]-newwall[2], newwall[0]):
+                    print(checknewblock([j, newwall[0]], walls, newwall[4], count))
+                    if checknewblock([j, newwall[0]], walls, newwall[4], count):
+                        newwall[4].append([j, newwall[1]])
+            count += 1
             print(newwall[0:4], "\n", newwall[4])
             walls.append(newwall[4])
     return walls
+
+def checknewblock(block, walls, newwall, num):
+    a = -1
+    b = -1
+    count = 1
+    while a < 2:
+        while b < 2:
+        #if [block[0]+a, block[1]+b] in newwall:
+        #    print(f"Error, {block}, {newwall}")
+        #    return False
+        
+            for i in walls:
+                if count != num:
+                    if [block[0]+a, block[1]+b] in i:
+                        print(f"Error, {block}, {i}")
+                        count += 1
+                        return False
+            b += 1
+            count += 1
+        b = -1
+        a += 1
+    return True
 
 def drawwalls(walls):
     for i in walls:
