@@ -29,15 +29,15 @@ pip install -U pyxel
 
 1. Make sure both files are in the same folder:
 
-   * `snake_v005.py`
-   * `snake2.pyxres`
+   * `UltraSnake.py`
+   * `UltraSnake.pyxres`
 
 2. Open a terminal (Command Prompt / PowerShell / Linux terminal) in that folder.
 
 3. Run the game with:
 
 ```bash
-python snake_v005.py
+python3 UltraSnake.py ls
 ```
 
 The game window will open automatically.
