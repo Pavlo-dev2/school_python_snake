@@ -1,94 +1,106 @@
-#Ultrasnake
+<h1 align="center">🐍 Ultrasnake</h1>
 
-Ultrasnake is a classic Snake-style arcade game written in Python using the Pyxel retro game engine. The goal is to control the snake, eat apples, and survive as long as possible without hitting the walls or your own body.
+<p align="center">
+  <b>A retro Snake-style arcade game built with Python and Pyxel</b>
+</p>
+
+<hr>
+
+Ultrasnake is a classic Snake-style arcade game written in **Python** using the **Pyxel** retro game engine. The goal is to control the snake, eat apples, and survive as long as possible without hitting the walls or your own body.
 
 The game includes different apple types that can speed up or slow down the snake, as well as multiple difficulty levels.
 
-Requirements
+---
 
-Python 3.8+
+<h2>⚙️ Requirements</h2>
 
-Pyxel game engine
+* Python **3.8+**
+* Pyxel game engine
 
-To install Pyxel:
+To install Pyxel(Windows):
 
-pip install pyxel
-How to Run the Game
+```bash
+pip install -U pyxel
+```
 
-Make sure both files are in the same folder:
+---
 
-snake_v005.py
+<h2>▶️ How to Run the Game</h2>
 
-snake2.pyxres
+1. Make sure both files are in the same folder:
 
-Open a terminal (Command Prompt / PowerShell / Linux terminal) in that folder.
+   * `snake_v005.py`
+   * `snake2.pyxres`
 
-Run the game with:
+2. Open a terminal (Command Prompt / PowerShell / Linux terminal) in that folder.
 
+3. Run the game with:
+
+```bash
 python snake_v005.py
+```
 
 The game window will open automatically.
 
-Controls
+---
 
-You can control the snake using either WASD or Arrow keys:
+<h2>🎮 Controls</h2>
 
-W / ↑ – Move up
+You can control the snake using either **WASD** or **Arrow keys**:
 
-D / → – Move right
-
-S / ↓ – Move down
-
-A / ← – Move left
+* **W / ↑** – Move up
+* **D / →** – Move right
+* **S / ↓** – Move down
+* **A / ←** – Move left
 
 The snake cannot instantly move in the opposite direction unless its length is 1.
 
-Choosing a Difficulty Level
+---
+
+<h2>🎚️ Choosing a Difficulty Level</h2>
 
 Before the game starts, you must select a difficulty level:
 
-Press 1 – Level 1 (easy)
-
-Press 2 – Level 2
-
-Press 3 – Level 3
-
-Press 4 – Level 4
-
-Press 5 – Level 5 (hard)
+* Press **1** – Level 1 (easy)
+* Press **2** – Level 2
+* Press **3** – Level 3
+* Press **4** – Level 4
+* Press **5** – Level 5 (hard)
 
 Higher levels increase the game difficulty and affect apple behavior.
 
-Gameplay Rules
+---
 
-Eat apples to grow longer and increase your score.
+<h2>🕹️ Gameplay Rules</h2>
 
-The game ends if:
+* Eat apples to grow longer and increase your score.
+* The game ends if:
 
-You hit the wall
+  * You hit the wall
+  * You collide with your own body
 
-You collide with your own body
+### Apple Types
 
-Apple Types
-
-Pink apple – Normal apple
-
-Yellow apple – Slows down the snake
-
-Violet apple – Speeds up the snake
+* **Pink apple** – Normal apple
+* **Yellow apple** – Slows down the snake
+* **Violet apple** – Speeds up the snake
 
 Different apple types appear depending on the selected level.
 
-Objective
+---
+
+<h2>🏆 Objective</h2>
 
 Survive as long as possible and get the highest score by eating apples while managing your speed and avoiding collisions.
 
-Notes
+---
 
-The game uses a grid of 16×16 pixel tiles.
+<h2>📝 Notes</h2>
 
-Maximum number of apples on the field is limited.
+* The game uses a grid of **16×16 pixel tiles**.
+* Maximum number of apples on the field is limited.
+* The game speed dynamically changes based on apple effects.
 
-The game speed dynamically changes based on apple effects.
+---
 
-Have fun playing Ultrasnake
+Have fun playing **Ultrasnake** 🐍
