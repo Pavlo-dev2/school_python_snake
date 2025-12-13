@@ -1,2 +1,94 @@
-# school_python_snake
-This is my school snake-game project, it will work on pyxel
+#Ultrasnake
+
+Ultrasnake is a classic Snake-style arcade game written in Python using the Pyxel retro game engine. The goal is to control the snake, eat apples, and survive as long as possible without hitting the walls or your own body.
+
+The game includes different apple types that can speed up or slow down the snake, as well as multiple difficulty levels.
+
+Requirements
+
+Python 3.8+
+
+Pyxel game engine
+
+To install Pyxel:
+
+pip install pyxel
+How to Run the Game
+
+Make sure both files are in the same folder:
+
+snake_v005.py
+
+snake2.pyxres
+
+Open a terminal (Command Prompt / PowerShell / Linux terminal) in that folder.
+
+Run the game with:
+
+python snake_v005.py
+
+The game window will open automatically.
+
+Controls
+
+You can control the snake using either WASD or Arrow keys:
+
+W / ↑ – Move up
+
+D / → – Move right
+
+S / ↓ – Move down
+
+A / ← – Move left
+
+The snake cannot instantly move in the opposite direction unless its length is 1.
+
+Choosing a Difficulty Level
+
+Before the game starts, you must select a difficulty level:
+
+Press 1 – Level 1 (easy)
+
+Press 2 – Level 2
+
+Press 3 – Level 3
+
+Press 4 – Level 4
+
+Press 5 – Level 5 (hard)
+
+Higher levels increase the game difficulty and affect apple behavior.
+
+Gameplay Rules
+
+Eat apples to grow longer and increase your score.
+
+The game ends if:
+
+You hit the wall
+
+You collide with your own body
+
+Apple Types
+
+Pink apple – Normal apple
+
+Yellow apple – Slows down the snake
+
+Violet apple – Speeds up the snake
+
+Different apple types appear depending on the selected level.
+
+Objective
+
+Survive as long as possible and get the highest score by eating apples while managing your speed and avoiding collisions.
+
+Notes
+
+The game uses a grid of 16×16 pixel tiles.
+
+Maximum number of apples on the field is limited.
+
+The game speed dynamically changes based on apple effects.
+
+Have fun playing Ultrasnake
